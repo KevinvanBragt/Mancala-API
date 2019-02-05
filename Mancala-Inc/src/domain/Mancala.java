@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement; 
 import javax.xml.bind.annotation.XmlRootElement; 
 
+@XmlRootElement
 public class Mancala implements Serializable {
 
 	/** facade for Mancala domain and API **/
@@ -16,6 +17,7 @@ public class Mancala implements Serializable {
 		this.startingcup = new Pitt(null, 0);
 	}
 	
+	
 	public Mancala(int id) {
 		this.startingcup = new Pitt(null, 0);
 		this.id = id;
@@ -23,7 +25,7 @@ public class Mancala implements Serializable {
 
 	/** domain methods **/
 	
-	public void makeMoveFacade(int selectedCup, Cup startingCup ) {
+	public void makeMoveFacade(int selectedCup) {
 
 		if (validMove(selectedCup)) {
 			((Pitt) startingcup.getNextCup(selectedCup-1)).giveAwayStones();

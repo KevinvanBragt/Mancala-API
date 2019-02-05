@@ -1,6 +1,8 @@
 package domain;
 
-class Pitt extends Cup {
+import java.io.Serializable;
+
+class Pitt extends Cup implements Serializable {
 
 	protected Pitt(Player owner, int counter) {
 		this.setStones(4);
