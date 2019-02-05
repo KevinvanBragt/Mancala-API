@@ -1,7 +1,8 @@
 package domain;
 
+import java.io.Serializable;
 
-class Kalaha extends Cup {
+class Kalaha extends Cup implements Serializable {
 
 	public Kalaha(int counter, Player owner) {
 		this.setStones(0);
@@ -25,12 +26,11 @@ class Kalaha extends Cup {
 			// ended turn in own kalaha, hence turn is not switched. but might have been the
 			// last stones
 			this.getNextCup().checkGameEnd(0, this.getOwner().getPlayerTakingTurn());
-		} else if (stones >= 1 && this.getOwner().getHasTurn()) {
-			// other players kalaha, do not add stone
-			this.getNextCup().passStones(stones);
 		} else if (stones > 1 && this.getOwner().getHasTurn()) {
 			this.addStones(1);
 			stones--;
+			this.getNextCup().passStones(stones);
+		} else if (!this.getOwner().getHasTurn()) {
 			this.getNextCup().passStones(stones);
 		}
 

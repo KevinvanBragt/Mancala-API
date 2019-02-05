@@ -46,7 +46,7 @@ public class MancalaService {
    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN}) 
    public Response createNewGame() {
 	   int id = mancalaDao.saveGame(new Mancala());
-	   return Response.status(Response.Status.OK).entity("game has been created, the id is: " + id).build();
+	   return Response.status(Response.Status.CREATED).entity("game has been created, the id is: " + id).build();
    }
    
    @PUT 
@@ -59,7 +59,7 @@ public class MancalaService {
 		   return Response.status(Response.Status.NOT_FOUND).entity("no mancala game exists for the id of: " + id).build();
 	   } 	   
 	   mancala.makeMoveFacade(cupId);
-	   return Response.status(Response.Status.CREATED).entity("move has been made").build();
+	   return Response.status(Response.Status.OK).entity("move has been made").build();
    }
    
 }

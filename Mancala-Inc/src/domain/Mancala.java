@@ -10,27 +10,18 @@ public class Mancala implements Serializable {
 	/** facade for Mancala domain and API **/
 	
 	private static final long serialVersionUID = 1L;
-	private int id;
 	public final Cup startingcup;
 
 	public Mancala() {
 		this.startingcup = new Pitt(null, 0);
 	}
 	
-	
-	public Mancala(int id) {
-		this.startingcup = new Pitt(null, 0);
-		this.id = id;
-	}
-
 	/** domain methods **/
 	
 	public void makeMoveFacade(int selectedCup) {
-
 		if (validMove(selectedCup)) {
 			((Pitt) startingcup.getNextCup(selectedCup-1)).giveAwayStones();
 		}
-		
 	}
 
 	public int[] getGameState() {
@@ -44,11 +35,7 @@ public class Mancala implements Serializable {
 		
 		return gameState;
 	}
-	
-	public int getGameID() {
-		return this.id;
-	}
-	
+		
 	private boolean validMove(int move) {
 		if ((startingcup.getNextCup(move - 1).getStones() != 0) && (!(startingcup.getNextCup(move-1) instanceof Kalaha)) && (startingcup.getNextCup(move - 1).getOwner().getHasTurn())) {
 			return true;

@@ -1,6 +1,8 @@
 package domain;
 
-public abstract class Cup {
+import java.io.Serializable;
+
+public abstract class Cup implements Serializable {
 	
 	private static Cup startingCup;
 	private int stones = 4;
