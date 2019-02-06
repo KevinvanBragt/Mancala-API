@@ -23,9 +23,10 @@ return 201 or 200 + JSON
 
 todo:
 - session/cookies? (in browser using it..?)
-- persistence
 - add index.html for options
+- authentication
+//
+- persistence
 - logging
 - implement interface for DAO
-- authentication
 - hateos (hypermedia drive)

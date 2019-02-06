@@ -20,7 +20,7 @@ public class Mancala implements Serializable {
 	
 	public void makeMoveFacade(int selectedCup) {
 		if (validMove(selectedCup)) {
-			((Pitt) startingcup.getNextCup(selectedCup-1)).giveAwayStones();
+			((Pitt) startingcup.getNextCup(selectedCup)).giveAwayStones();
 		}
 	}
 
