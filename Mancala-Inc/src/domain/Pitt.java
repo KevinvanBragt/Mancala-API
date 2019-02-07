@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 class Pitt extends Cup implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2697928569673165924L;
+
 	protected Pitt(Player owner, int counter) {
 		this.setStones(4);
 		this.setOwner(owner);
@@ -55,15 +60,16 @@ class Pitt extends Cup implements Serializable {
 			// did not end turn in kalaha, hence switch turn
 			this.getOwner().switchTurns(0);
 			this.checkGameEnd(0, this.getOwner().getPlayerTakingTurn());
-		}
-				
+		}		
 	}	
 		
 	protected void getToOpposing(int counter) {
 		counter++;
 		if (counter == 0) {
-			//found opposing kalaha, steal action
-			this.steal();
+			//found opposing kalaha, steal action, but only if there are any stones
+			if (this.getStones() > 0) {
+				this.steal();
+			}
 		}  else {
 			getNextCup().getToOpposing(counter);
 		}
@@ -95,5 +101,12 @@ class Pitt extends Cup implements Serializable {
 		}
 		
 	}
+	
+	@Override
+	protected void setGameOutcome(Player player, int counter) {
+		this.getNextCup().setGameOutcome(player, counter);
+		
+	}
+
 	
 }

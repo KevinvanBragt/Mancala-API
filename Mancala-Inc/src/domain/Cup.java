@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public abstract class Cup implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4379109383192442591L;
 	private static Cup startingCup;
 	private int stones = 4;
 	private Cup nextCup;
@@ -33,7 +37,7 @@ public abstract class Cup implements Serializable {
 		return this.nextCup;
 	}
 		
-	public final Cup getNextCup(int x) {
+	public Cup getNextCup(int x) {
 		// start counting at one time	
 		Cup reference = this;
 		while (x > 0) {
@@ -64,5 +68,6 @@ public abstract class Cup implements Serializable {
 
 	protected abstract void getToOpposing(int counter);
 	
+	protected abstract void setGameOutcome(Player player, int counter);
 		
 }

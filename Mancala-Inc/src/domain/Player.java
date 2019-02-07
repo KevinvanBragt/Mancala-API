@@ -6,6 +6,7 @@ public class Player {
 	private boolean hasTurn;
 	private String name;
 	private Player opponent;
+	private gameOutcomes gameOutcome = null;
 	
 	Player(boolean hasTurn, String name){
 		this.hasTurn = hasTurn;
@@ -24,6 +25,14 @@ public class Player {
 		return this.hasTurn;
 	}
 	
+	public void setGameOutcome(gameOutcomes gameOutcome) {
+		this.gameOutcome = gameOutcome;
+	}
+
+	public gameOutcomes getGameOutcome() {
+		return this.gameOutcome;
+	}
+
 	protected String getName() {
 		return this.name;
 	}
@@ -53,6 +62,8 @@ public class Player {
 	return playerTakingTurn;
 	}
 	
+	public enum gameOutcomes {WIN, LOSE, DRAW}
+
 	
 }	
 

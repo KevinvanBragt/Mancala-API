@@ -47,7 +47,6 @@ public class MancalaDao {
 	private HashMap<Integer, Mancala> loadGames() {
 		HashMap<Integer, Mancala> mancalaGames = null;
 		FileInputStream fis = null;
-		ObjectInputStream ois = null;
 		try {
 			File file = new File("MancalaPersistence.dat");
 			if (!file.exists()) {
@@ -57,9 +56,9 @@ public class MancalaDao {
 				saveGames();
 			} else {
 				fis = new FileInputStream(file);
-				ois = new ObjectInputStream(fis);
-				mancalaGames = (HashMap<Integer, Mancala>) ois.readObject();
-				ois.close();
+				try (ObjectInputStream ois = new ObjectInputStream(fis)){
+						mancalaGames = (HashMap<Integer, Mancala>) ois.readObject();
+				} 	
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,9 +68,6 @@ public class MancalaDao {
 			try{
 				if (fis != null) {
 					fis.close();
-				}
-				if (ois != null) {
-					ois.close();
 				}
 			}
 			catch (IOException e) { e.printStackTrace();

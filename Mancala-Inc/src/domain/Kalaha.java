@@ -1,8 +1,13 @@
 package domain;
-
+import domain.Player;
 import java.io.Serializable;
 
 class Kalaha extends Cup implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7725077136272313478L;
 
 	public Kalaha(int counter, Player owner) {
 		this.setStones(0);
@@ -53,20 +58,34 @@ class Kalaha extends Cup implements Serializable {
 	}
 
 	protected void checkGameEnd(int stones, Player playerTakingTurn) {
-
 		if (this.getOwner() != playerTakingTurn) {
 			stones = 0;
 			this.getNextCup().checkGameEnd(stones, playerTakingTurn);
 		} else if (stones == 0 && this.getOwner() == playerTakingTurn){
-				// no more stones in cup, hence use this kalaha to determine winner
+				// no more stones in cups of player taking turn, hence use this kalaha to determine winner
 				if (this.getStones() > 24) {
-					System.out.println(this.getOwner().getName() + " has won!");
+					this.setGameOutcome(this.getOwner(), 0);
 				} else if (this.getStones() == 24) {
-					System.out.println("It's a draw!");
+					this.setGameOutcome(null, 0);
 				} else  if(this.getStones() < 24) {
-					System.out.println(this.getOwner().getOpponent().getName() + " has won!");
+					this.setGameOutcome(this.getOwner().getOpponent(), 0);
 				}
 			} 
 		}
 
+	protected void setGameOutcome(Player winner, int counter) {
+		if (this.getOwner() == winner) {
+			this.getOwner().setGameOutcome(Player.gameOutcomes.WIN);
+		}
+		else if (this.getOwner().getOpponent() == winner) {
+			this.getOwner().setGameOutcome(Player.gameOutcomes.LOSE);
+		}
+		else if (winner == null) {
+			this.getOwner().setGameOutcome(Player.gameOutcomes.DRAW);
+		}
+		
+		if (counter < 1) {
+			this.getNextCup().setGameOutcome(winner, ++counter);
+		}
+	}
 }

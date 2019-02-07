@@ -4,7 +4,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import domain.Mancala;  
 import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
