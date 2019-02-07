@@ -15,7 +15,7 @@ class Pitt extends Cup implements Serializable {
 		counter++;
 
 		if (counter == 1) {
-			owner = new Player(true, "Player1");
+			owner = new Player(true);
 			this.setOwner(owner);
 			setStartingCup(this);
 			this.setNextCup(new Pitt(owner, counter));

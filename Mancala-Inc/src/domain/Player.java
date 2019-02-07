@@ -4,15 +4,13 @@ package domain;
 public class Player {
 
 	private boolean hasTurn;
-	private String name;
 	private Player opponent;
 	private gameOutcomes gameOutcome = null;
 	
-	Player(boolean hasTurn, String name){
+	Player(boolean hasTurn){
 		this.hasTurn = hasTurn;
-		this.name = name;
 	if (hasTurn) {
-		this.setOpponent(new Player(false, "Player2"));
+		this.setOpponent(new Player(false));
 		this.getOpponent().setOpponent(this);
 		}   
 	}
@@ -33,10 +31,6 @@ public class Player {
 		return this.gameOutcome;
 	}
 
-	protected String getName() {
-		return this.name;
-	}
-	
 	protected void switchTurns(int x) {
 		this.hasTurn = !this.hasTurn;
 		if (x == 0) {
@@ -54,7 +48,7 @@ public class Player {
 
 	protected Player getPlayerTakingTurn() {
 	Player playerTakingTurn = null;
-	if (this.getHasTurn() == true) {
+	if (this.getHasTurn()) {
 		playerTakingTurn = this;
 	} else {
 		playerTakingTurn = this.getOpponent();

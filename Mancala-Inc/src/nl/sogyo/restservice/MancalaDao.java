@@ -17,6 +17,11 @@ public class MancalaDao {
 	private HashMap<Integer, Mancala> savedMancalaGames = new HashMap<>();
 	private static MancalaDao uniqueMancalaDao = null;
 	
+	private MancalaDao() {	
+		//actual loading
+		//this.savedMancalaGames = loadGames();
+	}
+	
 	public static MancalaDao getMancalaDaoInstance() {
 		if (uniqueMancalaDao == null) {
 			uniqueMancalaDao = new MancalaDao();
@@ -24,24 +29,33 @@ public class MancalaDao {
 		return uniqueMancalaDao;
 	}
 	
-	public void saveGame(Mancala mancala, int id) {
+	protected HashMap<Integer, Mancala> getGames(){
+		return this.savedMancalaGames;
+	}
+	
+	public void setGame(Mancala mancala, int id) {
 		savedMancalaGames.put(id, mancala);
 		//actual persistence
 		//saveGames();
 	}
 	
-	public int saveGame(Mancala mancala) {
-		//inefficient but easy
-		int id = 0;
-		do {
-			id = new Random().nextInt();
-		} while(savedMancalaGames.containsKey(id));
-		savedMancalaGames.put(id, mancala);
+	public int setGame(Mancala mancala) {
+		int id = generateId();
+		setGame(mancala, id);
 		return id;
 	}
 	
-	public Mancala loadGame(int id) {
+	public Mancala getGame(int id) {
 		return savedMancalaGames.get(id);
+	}
+	
+	protected boolean deleteGame(int id) {
+		if (savedMancalaGames.containsKey(id)) {
+			savedMancalaGames.remove(id);
+			return true;
+		} else { return false; }
+		
+		
 	}
 	
 	private HashMap<Integer, Mancala> loadGames() {
@@ -89,12 +103,16 @@ public class MancalaDao {
 		} catch (IOException e) { e.printStackTrace();
 		}
 	}
-
-	private MancalaDao() {	
-		//actual loading
-		//this.savedMancalaGames = loadGames();
-		
-		savedMancalaGames.put(0, new Mancala());
+	
+	private int generateId() {
+		//inefficient but easy
+		int id = 0;
+		do {
+			id = new Random().nextInt();
+			if (id < 0) { id *= -1; }
+		} while(savedMancalaGames.containsKey(id));
+		return id;
 	}
+	
 	
 }
