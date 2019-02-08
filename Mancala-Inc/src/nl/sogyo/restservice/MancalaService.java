@@ -1,6 +1,4 @@
 package nl.sogyo.restservice;
-
-import java.awt.List;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.ws.rs.*;
@@ -26,7 +24,7 @@ public class MancalaService {
 					.build();
 		} else {
 			jsonResponse = parseToJSON(mancala.getGameState());
-			return Response.status(Response.Status.OK).entity(jsonResponse).build();
+			return Response.status(Response.Status.OK).entity(jsonResponse.toString()).build();
 		}
 	}
 
@@ -50,7 +48,7 @@ public class MancalaService {
 		Mancala mancala = new Mancala();
 		int id = mancalaDao.setGame(mancala);
 		StringBuilder jsonResponse = parseToJSON(id);
-		return Response.status(Response.Status.CREATED).entity(jsonResponse).build();
+		return Response.status(Response.Status.CREATED).entity(jsonResponse.toString()).build();
 	}
 
 	@PUT
@@ -81,7 +79,6 @@ public class MancalaService {
 		return json;
 	}
 
-	// authentication??
 	@DELETE
 	@Path("game/{id}")
 	public Response deleteGame(@PathParam("id") int id) {
@@ -90,21 +87,6 @@ public class MancalaService {
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).entity("game is not found").build();
 		}
-	}
-
-	// not implemented
-	@GET
-	@Path("game/{id}/haswinner")
-	public Response gethasWinner() {
-		return Response.status(Response.Status.NOT_IMPLEMENTED).entity("not yet implemented, use gameState[15] instead")
-				.build();
-	}
-
-	@GET
-	@Path("game/{id}/winner")
-	public Response getWinner() {
-		return Response.status(Response.Status.NOT_IMPLEMENTED).entity("not yet implemented, use gameState[15] instead")
-				.build();
 	}
 
 }

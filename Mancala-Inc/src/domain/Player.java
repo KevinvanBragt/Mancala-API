@@ -1,7 +1,8 @@
 package domain;
 
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable {
 
 	private boolean hasTurn;
 	private Player opponent;
